@@ -2,6 +2,8 @@
 
 A collection of Language Server Protocol (LSP) plugins for [Claude Code](https://github.com/anthropics/claude-code).
 
+![LSP Demo](assets/lsp-demo.png)
+
 ## What is LSP Integration?
 
 The Language Server Protocol provides IDE-like intelligence to Claude Code. On startup, Claude Code automatically starts LSP servers from installed plugins and exposes them to Claude in two ways:
