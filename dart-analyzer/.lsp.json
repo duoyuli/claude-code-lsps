@@ -5,9 +5,8 @@
     "extensionToLanguage": {
       ".dart": "dart"
     },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    "loggingConfig": {
+      "args": ["--instrumentation-log-file", "${CLAUDE_PLUGIN_LSP_LOG_FILE}"]
+    }
   }
 }

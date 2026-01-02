@@ -6,6 +6,9 @@ A collection of Language Server Protocol (LSP) plugins for [Claude Code](https:/
 
 ## What is LSP Integration?
 
+> [!IMPORTANT]
+> Requires Claude Code 2.0.74+
+
 The Language Server Protocol provides IDE-like intelligence to Claude Code. On startup, Claude Code automatically starts LSP servers from installed plugins and exposes them to Claude in two ways:
 
 **LSP Tool** - A builtin tool with 5 operations mapping directly to LSP commands:
@@ -37,28 +40,14 @@ The Language Server Protocol provides IDE-like intelligence to Claude Code. On s
 
 ## Getting Started
 
-### 1. Enable the LSP Tool
-
-The LSP tool is not yet enabled by default. Add to your shell profile (`.bashrc`, `.zshrc`, etc.):
-
-```bash
-export ENABLE_LSP_TOOL=1
-```
-
-Or run with the environment variable:
-
-```bash
-ENABLE_LSP_TOOL=1 claude
-```
-
-### 2. Add the Marketplace
+### 1. Add the Marketplace
 
 ```bash
 claude
 /plugin marketplace add boostvolt/claude-code-lsps
 ```
 
-### 3. Install Plugins
+### 2. Install Plugins
 
 Install individual plugins:
 
@@ -260,27 +249,35 @@ The `.lsp.json` file configures the language server:
 {
   "language-id": {
     "command": "lsp-server-command",
-    "args": ["--stdio"],
     "extensionToLanguage": {
       ".ext": "language-id"
-    },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    }
   }
 }
 ```
 
-| Field                   | Type     | Required | Description                                             |
-| ----------------------- | -------- | -------- | ------------------------------------------------------- |
-| `command`               | string   | Yes      | Command to start the LSP server                         |
-| `args`                  | string[] | No       | Arguments passed to the command                         |
-| `extensionToLanguage`   | object   | Yes      | Maps file extensions to language IDs                    |
-| `transport`             | string   | No       | Communication method: `"stdio"` (default) or `"socket"` |
-| `initializationOptions` | object   | No       | Options passed during LSP initialization                |
-| `settings`              | object   | No       | Server-specific settings                                |
-| `maxRestarts`           | number   | No       | Max restart attempts on crash (default: 3)              |
+**Required Fields**
+
+| Field                 | Type   | Description                          |
+| --------------------- | ------ | ------------------------------------ |
+| `command`             | string | Command to start the LSP server      |
+| `extensionToLanguage` | object | Maps file extensions to language IDs |
+
+**Optional Fields**
+
+| Field                   | Type     | Description                                                     |
+| ----------------------- | -------- | --------------------------------------------------------------- |
+| `args`                  | string[] | Arguments passed to the command                                 |
+| `transport`             | string   | Communication method: `"stdio"` (default) or `"socket"`         |
+| `env`                   | object   | Environment variables to set when starting the server           |
+| `initializationOptions` | object   | Options passed during LSP initialization                        |
+| `settings`              | object   | Server-specific settings via `workspace/didChangeConfiguration` |
+| `workspaceFolder`       | string   | Workspace folder path for the server                            |
+| `startupTimeout`        | number   | Max time to wait for server startup (milliseconds)              |
+| `shutdownTimeout`       | number   | Max time to wait for graceful shutdown (milliseconds)           |
+| `restartOnCrash`        | boolean  | Whether to automatically restart the server if it crashes       |
+| `maxRestarts`           | number   | Max restart attempts before giving up (default: 3)              |
+| `loggingConfig`         | object   | Debug logging configuration (see [Debug Logging](#debug-logging)) |
 
 </details>
 
@@ -293,14 +290,9 @@ The `.lsp.json` file configures the language server:
 {
   "go": {
     "command": "gopls",
-    "args": [],
     "extensionToLanguage": {
       ".go": "go"
-    },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    }
   }
 }
 ```
@@ -339,6 +331,31 @@ The `.lsp.json` file configures the language server:
 ```
 
 </details>
+
+---
+
+## Debug Logging
+
+Enable verbose LSP logging by running Claude Code with `--enable-lsp-logging`:
+
+```bash
+claude --enable-lsp-logging
+```
+
+Logs are written to `~/.claude/debug/`.
+
+**Plugins with logging pre-configured:**
+
+| Plugin | Method |
+|--------|--------|
+| gopls | `-rpc.trace` + logfile |
+| clangd | `--log=verbose` |
+| omnisharp | `-v` verbose flag |
+| rust-analyzer | `RA_LOG` + `RA_LOG_FILE` env |
+| solargraph | `SOLARGRAPH_LOG` env |
+| dart-analyzer | `--instrumentation-log-file` |
+
+**Not supported** (use LSP trace settings instead): vtsls, pyright, jdtls, intelephense, kotlin-language-server, vscode-html-css
 
 ## License
 

@@ -5,10 +5,6 @@
     "extensionToLanguage": {
       ".py": "python",
       ".pyi": "python"
-    },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    }
   }
 }

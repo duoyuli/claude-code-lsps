@@ -5,11 +5,7 @@
     "extensionToLanguage": {
       ".html": "html",
       ".htm": "html"
-    },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    }
   },
   "css": {
     "command": "vscode-css-language-server",
@@ -18,10 +14,6 @@
       ".css": "css",
       ".scss": "scss",
       ".less": "less"
-    },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    }
   }
 }

@@ -6,9 +6,8 @@
       ".cs": "csharp",
       ".csx": "csharp"
     },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    "loggingConfig": {
+      "args": ["-v"]
+    }
   }
 }

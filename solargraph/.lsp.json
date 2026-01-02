@@ -7,9 +7,10 @@
       ".rake": "ruby",
       ".gemspec": "ruby"
     },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    "loggingConfig": {
+      "env": {
+        "SOLARGRAPH_LOG": "debug"
+      }
+    }
   }
 }

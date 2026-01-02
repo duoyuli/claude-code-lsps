@@ -1,7 +1,6 @@
 {
   "cpp": {
     "command": "clangd",
-    "args": [],
     "extensionToLanguage": {
       ".c": "c",
       ".h": "c",
@@ -11,9 +10,8 @@
       ".cxx": "cpp",
       ".hxx": "cpp"
     },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    "loggingConfig": {
+      "args": ["--log=verbose"]
+    }
   }
 }

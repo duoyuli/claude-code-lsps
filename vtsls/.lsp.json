@@ -9,10 +9,6 @@
       ".jsx": "javascriptreact",
       ".mjs": "javascript",
       ".cjs": "javascript"
-    },
-    "transport": "stdio",
-    "initializationOptions": {},
-    "settings": {},
-    "maxRestarts": 3
+    }
   }
 }
