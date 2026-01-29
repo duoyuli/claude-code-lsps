@@ -3,7 +3,7 @@
     "command": "jdtls",
     "args": [
       "--java-executable",
-      "/Users/liweichao/.sdkman/candidates/java/21.0.9.fx-zulu/bin/java"
+      "/data/.sdkman/candidates/java/21.0.9.fx-zulu/bin/java"
     ],
     "extensionToLanguage": {
       ".java": "java"
